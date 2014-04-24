@@ -13,10 +13,8 @@ VENV_ROOT = '/home/shill/virtualenvs'
 
 def _wrap_local(cmd):
     """Some of fabric's 'local' calls need this to work.
-    Usage:
-        local(_wrap_local("mkvirtualenv foo"))
-    Output:
-        [localhost] local: /bin/bash -l -c 'mkvirtualenv foo'
+    Usage: local(_wrap_local("mkvirtualenv foo"))
+    Output: [localhost] local: /bin/bash -l -c 'mkvirtualenv foo'
     """
     return "/bin/bash -l -c '{}'".format(cmd)
 
