@@ -11,7 +11,7 @@ VENV_ROOT = '/home/shill/virtualenvs'
 # env.directory = '/home/shill/dev/obi_django'
 
 
-def _wrap_local(cmd):
+def _bash_wrap(cmd):
     """Some of fabric's 'local' calls need this to work.
     Usage: local(_wrap_local("mkvirtualenv foo"))
     Output: [localhost] local: /bin/bash -l -c 'mkvirtualenv foo'
@@ -45,7 +45,7 @@ def build_venv(name=None, venv_root=None):
     if os.path.isdir(os.path.join(venv_root, name)):
         print("Virtual environment already exists.")
     else:
-        local(_wrap_local("mkvirtualenv {}".format(name)))
+        local(_bash_wrap("mkvirtualenv {}".format(name)))
 
 
 
