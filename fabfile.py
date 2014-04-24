@@ -1,5 +1,14 @@
+""" From http://www.yaconiello.com/blog/deploying-django-site-fabric/
+"""
 from fabric.api import *
 from fabric.colors import green, red
+
+
+
+
+def build_venv(venv):
+    local('echo building %s' % venv)
+
 
 
 def build_commit(warn_only=True):
@@ -32,6 +41,7 @@ def server():
     env.user = 'ubuntu'
     # Assumes that your *.pem key is in the same directory as your fabfile.py
     env.key_filename = 'my_ec2_security_group.pem'
+
 
 def staging():
     # path to the directory on the server where your vhost is set up
