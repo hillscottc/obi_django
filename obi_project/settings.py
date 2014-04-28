@@ -60,7 +60,7 @@ TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'obi_app', 'templates'),
 ]
 
-# SITE_NAME = "Obi Site"
+SITE_NAME = "Obi Site"
 
 
 ## In the heroku environ this will be set
