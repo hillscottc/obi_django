@@ -22,13 +22,13 @@ class Product(models.Model):
     code = models.CharField(max_length=4, blank=True, null=True, unique=True)
     name = models.CharField(max_length=35)
     is_active = models.BooleanField(default=True)
-    desc = models.CharField(max_length=80)
+    desc = models.CharField(max_length=80, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('product-detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        return self.code
+        return "{}-{}".format(self.code, self.name)
 
 
 class Purchase(models.Model):

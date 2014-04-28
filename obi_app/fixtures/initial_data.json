@@ -1,0 +1,370 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "shill", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-04-27T18:50:43.849Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$sPSWvmvGFQkx$PUnzchu74RHUY7egQ9+EafOB+37kg/dMN2gh2r2Hc40=", 
+        "email": "shill@taluslabs.com", 
+        "date_joined": "2014-04-27T18:43:27.274Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "obi1", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-04-27T18:51:49.728Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$fmcBt96Id8rX$PeR5qlMwX0ef9x/l6eFvz5391JAsN3hHymX3LkNg4Ow=", 
+        "email": "", 
+        "date_joined": "2014-04-27T18:51:49.728Z"
+    }
+},
+{
+    "pk": "l0go7tzkmn991xpaqzmhi7bxk8vpiyz6", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2014-05-11T18:50:43.853Z", 
+        "session_data": "NWUwZTk1NTdhYmE1ZGY0ZTU5NWVmYjEzZTA0YzVmMTkyZjhkOTM3Njp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": 1, 
+    "model": "obi_app.customer", 
+    "fields": {
+        "company": "", 
+        "email": "jdoe@doe.com", 
+        "lname": "Doe", 
+        "phone": "123-456-7890", 
+        "fname": "Jane", 
+        "notes": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "obi_app.customer", 
+    "fields": {
+        "company": "", 
+        "email": "bill@bill.com", 
+        "lname": "", 
+        "phone": "", 
+        "fname": "Bill", 
+        "notes": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "obi_app.product", 
+    "fields": {
+        "code": "B1", 
+        "is_active": true, 
+        "name": "Burger 1", 
+        "desc": "A delicious burger."
+    }
+},
+{
+    "pk": 2, 
+    "model": "obi_app.product", 
+    "fields": {
+        "code": "B2", 
+        "is_active": true, 
+        "name": "Another Burger", 
+        "desc": "very good"
+    }
+},
+{
+    "pk": 3, 
+    "model": "obi_app.product", 
+    "fields": {
+        "code": "S1", 
+        "is_active": true, 
+        "name": "Chicken Sausage", 
+        "desc": "yum"
+    }
+},
+{
+    "pk": 1, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 1, 
+        "timestamp": "2014-04-27T18:55:40.471Z", 
+        "product": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 1, 
+        "timestamp": "2014-04-27T18:56:06.231Z", 
+        "product": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 1, 
+        "timestamp": "2014-04-27T18:56:12.961Z", 
+        "product": 3
+    }
+},
+{
+    "pk": 4, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 2, 
+        "timestamp": "2014-04-27T18:56:20.482Z", 
+        "product": 2
+    }
+},
+{
+    "pk": 5, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 2, 
+        "timestamp": "2014-04-27T18:56:27.000Z", 
+        "product": 2
+    }
+},
+{
+    "pk": 6, 
+    "model": "obi_app.purchase", 
+    "fields": {
+        "customer": 2, 
+        "timestamp": "2014-04-27T18:56:32.612Z", 
+        "product": 2
+    }
+},
+{
+    "pk": 1, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:51:49.811Z", 
+        "object_repr": "obi1", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "auth", 
+            "user"
+        ]
+    }
+},
+{
+    "pk": 2, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:52:41.998Z", 
+        "object_repr": "Jane Doe", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "customer"
+        ]
+    }
+},
+{
+    "pk": 3, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:53:19.709Z", 
+        "object_repr": "Bill ", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "customer"
+        ]
+    }
+},
+{
+    "pk": 4, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:54:16.475Z", 
+        "object_repr": "B1", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 5, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:54:37.706Z", 
+        "object_repr": "B2", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 6, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:54:56.885Z", 
+        "object_repr": "S1", 
+        "object_id": "3", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "product"
+        ]
+    }
+},
+{
+    "pk": 7, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:55:40.472Z", 
+        "object_repr": "Jane Doe, B1, 2014-04-27 18:55:40.471577+00:00", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+},
+{
+    "pk": 8, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:56:06.232Z", 
+        "object_repr": "Jane Doe, B1, 2014-04-27 18:56:06.231476+00:00", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+},
+{
+    "pk": 9, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:56:12.961Z", 
+        "object_repr": "Jane Doe, S1, 2014-04-27 18:56:12.961267+00:00", 
+        "object_id": "3", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+},
+{
+    "pk": 10, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:56:20.482Z", 
+        "object_repr": "Bill , B2, 2014-04-27 18:56:20.482130+00:00", 
+        "object_id": "4", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+},
+{
+    "pk": 11, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:56:27.001Z", 
+        "object_repr": "Bill , B2, 2014-04-27 18:56:27.000926+00:00", 
+        "object_id": "5", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+},
+{
+    "pk": 12, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2014-04-27T18:56:32.613Z", 
+        "object_repr": "Bill , B2, 2014-04-27 18:56:32.612733+00:00", 
+        "object_id": "6", 
+        "change_message": "", 
+        "user": [
+            "shill"
+        ], 
+        "content_type": [
+            "obi_app", 
+            "purchase"
+        ]
+    }
+}
+]
