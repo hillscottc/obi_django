@@ -1,0 +1,1 @@
+web: gunicorn obi_project.wsgi

@@ -52,6 +52,9 @@ USE_TZ = True
 DATETIME_FORMAT = 'N j, Y, P'
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'obi_app', 'static'),
+)
 
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'obi_app', 'templates'),
@@ -75,10 +78,10 @@ JENKINS_TASKS = (
 )
 
 
-# ## In the heroku environ this will be set
-# if 'DATABASE_URL' in os.environ:
-#     import dj_database_url
-#     DATABASES['default'] = dj_database_url.config()
+## In the heroku environ this will be set
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
