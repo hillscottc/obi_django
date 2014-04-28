@@ -1,10 +1,22 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import Purchase, Customer
+
+
+class HomePageView(TemplateView):
+
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        # context['latest_articles'] = Article.objects.all()[:5]
+        return context
+
+
 
 
 class PurchaseCreate(CreateView):
