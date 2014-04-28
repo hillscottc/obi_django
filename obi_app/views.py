@@ -17,44 +17,31 @@ class HomePageView(TemplateView):
         return context
 
 
-
-
 class PurchaseCreate(CreateView):
+    template_name = "purchase_form.html"
     model = Purchase
     fields = ['customer', 'product']
+    success_url = reverse_lazy('purchase-list')
 
     # def form_valid(self, form):
     #     form.instance.created_by = self.request.user
     #     return super(PurchaseCreate, self).form_valid(form)
 
 
-class PurchaseDelete(DeleteView):
-    model = Purchase
-    success_url = reverse_lazy('purchase-list')
-
-
 class PurchaseList(ListView):
     model = Purchase
+    template_name = "purchase_list.html"
 
 
-# class CustomerPurchaseList(ListView):
-#
-#     template_name = 'purchases/purchases_by_customer.html'
-#
-#     def get_queryset(self):
-#         self.customer = get_object_or_404(Customer, name=self.args[0])
-#         return Purchase.objects.filter(customer=self.customer)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(CustomerPurchaseList, self).get_context_data(**kwargs)
-#         context['customer'] = self.customer
-#         return context
+class CustomerList(ListView):
+    model = Customer
+    template_name = "customer_list.html"
 
 
 class CustomerDetail(SingleObjectMixin, ListView):
     """Customer and purchases."""
-    paginate_by = 2
-    template_name = "customers/customer_detail.html"
+    paginate_by = 3
+    template_name = "customer_detail.html"
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object(queryset=Customer.objects.all())
@@ -67,3 +54,11 @@ class CustomerDetail(SingleObjectMixin, ListView):
 
     def get_queryset(self):
         return self.object.purchase_set.all()
+
+
+class PurchaseDelete(DeleteView):
+    model = Purchase
+    success_url = reverse_lazy('purchase-list')
+
+
+

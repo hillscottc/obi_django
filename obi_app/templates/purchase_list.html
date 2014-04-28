@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Purchases</h2>
+    <ul>
+        {% for purchase in object_list %}
+            <li><a href="{% url 'customer-detail' purchase.customer.id %}">{{ purchase.customer }}</a>,
+            {{ purchase.code }},
+            {{ purchase.timestamp }}
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}

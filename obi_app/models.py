@@ -40,7 +40,12 @@ class Purchase(models.Model):
         return reverse('purchase-detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        return "{}, {}, {}".format(self.customer, self.product, self.timestamp)
+        return "{}, {}, {}".format(self.customer,
+                                   self.product,
+                                   self.timestamp.strftime("%Y-%m-%d %H:%M"))
+
+    class Meta:
+            ordering = ['-timestamp']
 
 
 class PurchaseForm(ModelForm):
