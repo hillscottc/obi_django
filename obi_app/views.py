@@ -1,6 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
 import os
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import (HttpResponse, RequestContext,
+                              render_to_response, HttpResponseRedirect)
+from django.core.urlresolvers import reverse
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
@@ -73,6 +76,41 @@ class CustomerDetail(SingleObjectMixin, ListView):
 class PurchaseDelete(DeleteView):
     model = Purchase
     success_url = reverse_lazy('purchase-list')
+
+
+def user_login(request):
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('quiz_index'))
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    # The request is not a HTTP POST, so display the login form.
+    # This scenario would most likely be a HTTP GET.
+    else:
+        # No context variables to pass to the template system, hence the
+        # blank dictionary object...
+        return render_to_response('login.html', {}, context)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 

@@ -53,12 +53,16 @@ DATETIME_FORMAT = 'N j, Y, P'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'obi_app', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'obi_app', 'templates'),
 ]
+
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+
 
 SITE_NAME = "Obi Site"
 
