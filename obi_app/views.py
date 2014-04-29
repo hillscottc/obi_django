@@ -1,10 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+import os
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import Purchase, Customer
+from postmark import PMMail
+
+
+def send_email():
+    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
+                     subject="Hello from Obi App",
+                     sender="shill@taluslabs.com",
+                     to="scott289@gmail.com",
+                     text_body="Hello",
+                     tag="hello")
+
+    message.send()
 
 
 class HomePageView(TemplateView):
@@ -23,9 +36,10 @@ class PurchaseCreate(CreateView):
     fields = ['customer', 'product']
     success_url = reverse_lazy('purchase-list')
 
-    # def form_valid(self, form):
-    #     form.instance.created_by = self.request.user
-    #     return super(PurchaseCreate, self).form_valid(form)
+    def form_valid(self, form):
+        # form.instance.created_by = self.request.user
+        send_email()
+        return super(PurchaseCreate, self).form_valid(form)
 
 
 class PurchaseList(ListView):
