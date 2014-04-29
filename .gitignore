@@ -54,3 +54,5 @@ docs/_build/
 .idea
 ## Not sure about this one
 staticfiles
+
+.DS_Store
