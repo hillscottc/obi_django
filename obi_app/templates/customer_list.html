@@ -2,11 +2,33 @@
 
 {% block content %}
     <h2>Customers</h2>
-    <ul>
-        {% for customer in object_list %}
-            <li>
-            <a href="{% url 'customer-detail' customer.id %}">{{ customer }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+
+    {% if object_list %}
+        <div style="height: 300px;overflow: auto">
+            <table id="quiz_table" class="table table-sorted">
+                <thead>
+                <tr>
+                    <th><span>first</span></th>
+                    <th><span>last</span></th>
+                    <th><span>email</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for customer in object_list %}
+                    <tr>
+                        <td><a href="{% url 'customer-detail' customer.id %}">{{ customer.fname }}</a></td>
+                        <td><a href="{% url 'customer-detail' customer.id %}">{{ customer.lname }}</a></td>
+                        <td><a href="{% url 'customer-detail' customer.id %}">{{ customer.email }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No customers  are available.</p>
+    {% endif %}
+
+
+
+
 {% endblock %}

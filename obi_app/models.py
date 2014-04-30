@@ -15,7 +15,11 @@ class Customer(models.Model):
         return reverse('customer-detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        return "{} {}".format(self.fname, self.lname)
+        val = " "
+        for f in ['fname', 'lname', 'email']:
+            if f:
+                val += getattr(self, f) + " "
+        return val[:len(val)-1]
 
 
 class Product(models.Model):

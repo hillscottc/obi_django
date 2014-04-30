@@ -2,13 +2,30 @@
 
 {% block content %}
     <h2>Purchases</h2>
-    <ul>
-        {% for purchase in object_list %}
-            <li><a href="{% url 'customer-detail' purchase.customer.id %}">{{ purchase.customer }}</a>,
-            {{ purchase.code }},
-            {{ purchase.timestamp }}
-            </li>
+    {% if object_list %}
+        <div style="height: 300px;overflow: auto">
+            <table id="quiz_table" class="table table-sorted">
+                <thead>
+                <tr>
+                    <th><span>customer</span></th>
+                    <th><span>product</span></th>
+                    <th><span>timestamp</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in object_list %}
+                    <tr>
+                        <td><a href="{% url 'customer-detail' purchase.customer.id %}">{{ purchase.customer }}</a></td>
+                        <td>{{ purchase.product.code }}</td>
+                        <td>{{ purchase.timestamp }}/td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No purchases are available.</p>
+    {% endif %}
 
-        {% endfor %}
-    </ul>
+
 {% endblock %}
