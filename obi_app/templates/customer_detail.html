@@ -1,13 +1,30 @@
 {% extends "base_site.html" %}
 
 {% block content %}
-    <h2>Customer {{ customer }}</h2>
+    <h2>{{ customer }}</h2>
 
-    <ol>
-      {% for purchase in page_obj %}
-        <li>{{ purchase }}</li>
-      {% endfor %}
-    </ol>
+        {% if object_list %}
+        <div style="height: 300px;overflow: auto">
+            <table id="quiz_table" class="table table-sorted">
+                <thead>
+                <tr>
+                    <th><span>product</span></th>
+                    <th><span>timestamp</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in page_obj %}
+                    <tr>
+                        <td>{{ purchase.product.code }}</td>
+                        <td>{{ purchase.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No purchases are available.</p>
+    {% endif %}
 
     <div class="pagination">
         <span class="step-links">

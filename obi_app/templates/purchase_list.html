@@ -17,7 +17,7 @@
                     <tr>
                         <td><a href="{% url 'customer-detail' purchase.customer.id %}">{{ purchase.customer }}</a></td>
                         <td>{{ purchase.product.code }}</td>
-                        <td>{{ purchase.timestamp }}/td>
+                        <td>{{ purchase.timestamp }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

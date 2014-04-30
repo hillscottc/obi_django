@@ -14,6 +14,10 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'purchase-add' %}">Buy</a></li>
+
+                <li><a href="{% url 'customer-list' %}">Customers</a></li>
+                <li><a href="{% url 'purchase-list' %}">Purchases</a></li>
 
                 <li><a href="/admin/">Admin</a></li>
 
@@ -24,6 +28,10 @@
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
                 {% endcomment %}
+
+
+
+</ul>
 
 
 
