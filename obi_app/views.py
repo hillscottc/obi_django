@@ -5,21 +5,24 @@ from django.shortcuts import (HttpResponse, RequestContext,
                               render_to_response, HttpResponseRedirect)
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, TemplateView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.contrib import messages
 from .models import Purchase, Customer
 from postmark import PMMail
 
 
-def send_email():
-    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
-                     subject="Hello from Obi App",
-                     sender="shill@taluslabs.com",
-                     to="scott289@gmail.com",
-                     text_body="Hello",
-                     tag="hello")
+import logging
+logger = logging.getLogger('testlogger')
 
+
+def send_reward_email(**kwargs):
+    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
+                     subject="Your reward from Obi",
+                     sender="shill@taluslabs.com",
+                     **kwargs)
     message.send()
 
 
@@ -33,15 +36,26 @@ class HomePageView(TemplateView):
         return context
 
 
-class PurchaseCreate(CreateView):
+class PurchaseCreate(SuccessMessageMixin, CreateView):
     template_name = "purchase_form.html"
     model = Purchase
     fields = ['customer', 'product']
     success_url = reverse_lazy('purchase-list')
+    success_message = "It was created successfully"
+
+    # logger = logging.getLogger('testlogger')
 
     def form_valid(self, form):
         # form.instance.created_by = self.request.user
-        send_email()
+        # send_reward_email(to=form.cleaned_data['customer'],
+        #                   text_body=form.cleaned_data['product'])
+        # print 'dasdADSASASVFDSFSAFLAF;LNASFASNF;SANF;LSLKD'
+        # print form.cleaned_data['customer'], form.cleaned_data['product']
+        print 'ggwtrewsytryeryryytsryeryetetwt'
+        logger.info("%s .... %s" % (form.cleaned_data['customer'],
+                                    form.cleaned_data['product']))
+
+        messages.add_message(self.request, messages.INFO, 'Hello ' + form.cleaned_data['customer'] )
         return super(PurchaseCreate, self).form_valid(form)
 
 
