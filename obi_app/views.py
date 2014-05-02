@@ -57,7 +57,7 @@ class PurchaseCreate(SuccessMessageMixin, CreateView):
             if customer.email:
                 send_reward_email(
                     to=customer.email,
-                    text_body="".join(["Congratulations on your %d purchase from Obi's!",
+                    text_body="".join(["Congratulations on purchase number %d from Obi's!" % count,
                                        "To show our thanks, come on in for a FREE order. See you soon!"]))
                 msg += "Reward email sent."
             else:
