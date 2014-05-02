@@ -21,9 +21,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'obi_app',
+    # 'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,15 +92,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-TEMPLATE_DIRS = [
-    os.path.join(BASE_DIR, 'obi_app', 'templates'),
-]
 
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 
-
-SITE_NAME = "Obi Site"
 
 
 ## In the heroku environ this will be set
@@ -109,3 +106,17 @@ if 'DATABASE_URL' in os.environ:
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# INTERNAL_IPS = ('127.0.0.1', '0.0.0.0')
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+
+TEMPLATE_DIRS = [
+    os.path.join(BASE_DIR, 'obi_app', 'templates'),
+]
+
+SITE_NAME = "Obi Site"
+REWARD_MULTIPLE = 5
+
+
+

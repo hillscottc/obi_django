@@ -2,10 +2,8 @@
 
 {% block content %}
     <h2>Customers</h2>
-
     {% if object_list %}
-        <div style="height: 300px;overflow: auto">
-            <table id="quiz_table" class="table table-sorted">
+            <table class="table table-sorted table-condensed">
                 <thead>
                 <tr>
                     <th><span>first</span></th>
@@ -23,7 +21,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% else %}
         <p>No customers  are available.</p>
     {% endif %}

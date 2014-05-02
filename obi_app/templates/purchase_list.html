@@ -1,10 +1,9 @@
 {% extends "base_site.html" %}
 
 {% block content %}
-    <h2>Purchases</h2>
+    <h2>Purchase History</h2>
     {% if object_list %}
-        <div style="height: 300px;overflow: auto">
-            <table id="quiz_table" class="table table-sorted">
+            <table class="table table-sorted table-condensed">
                 <thead>
                 <tr>
                     <th><span>customer</span></th>
@@ -16,13 +15,12 @@
                     {% for purchase in object_list %}
                     <tr>
                         <td><a href="{% url 'customer-detail' purchase.customer.id %}">{{ purchase.customer }}</a></td>
-                        <td>{{ purchase.product.code }}</td>
+                        <td>{{ purchase.product.name }}</td>
                         <td>{{ purchase.timestamp }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
     {% else %}
         <p>No purchases are available.</p>
     {% endif %}

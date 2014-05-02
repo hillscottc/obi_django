@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 
 
 class Customer(models.Model):
-    fname = models.CharField(max_length=25)
+    fname = models.CharField(max_length=25, blank=True, null=True)
     lname = models.CharField(max_length=35, blank=True, null=True)
     company = models.CharField(max_length=35, blank=True, null=True)
     email = models.EmailField(max_length=40, blank=True, null=True, unique=True)
@@ -15,11 +15,7 @@ class Customer(models.Model):
         return reverse('customer-detail', kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        val = " "
-        for f in ['fname', 'lname', 'email']:
-            if f:
-                val += getattr(self, f) + " "
-        return val[:len(val)-1]
+        return ", ".join([self.fname, self.lname, self.email])
 
 
 class Product(models.Model):

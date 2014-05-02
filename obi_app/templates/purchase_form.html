@@ -2,11 +2,14 @@
 
 {% block content %}
 
-
+<h2>Buy</h2>
+    <br/>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+        <br/>
+
+    <input type="submit" value="Submit Purchase" />
 </form>
 
 {% endblock %}

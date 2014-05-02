@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 import views
+from django.views.generic.base import RedirectView
 
 
 from django.contrib import admin
@@ -12,7 +13,11 @@ urlpatterns = patterns(
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
 
 
-    url(r'^$', views.HomePageView.as_view(), name='home'),
+    # url(r'^$', views.HomePageView.as_view(), name='home'),
+    url(r'^$', views.home_redirect, name='home'),
+
+
+
     url(r'^purchases/$', views.PurchaseList.as_view(), name='purchase-list'),
 
     url(r'^customers/(?P<pk>\d+)/$', views.CustomerDetail.as_view(), name='customer-detail'),

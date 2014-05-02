@@ -1,7 +1,7 @@
 import os
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import (HttpResponse, RequestContext,
+from django.shortcuts import (HttpResponse, RequestContext, redirect,
                               render_to_response, HttpResponseRedirect)
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, TemplateView
@@ -10,11 +10,11 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
+from django.conf import settings
 from .models import Purchase, Customer
 from postmark import PMMail
-
-
 import logging
+
 logger = logging.getLogger('testlogger')
 
 
@@ -26,36 +26,44 @@ def send_reward_email(**kwargs):
     message.send()
 
 
-class HomePageView(TemplateView):
+# class HomePageView(TemplateView):
+#     template_name = "home.html"
+#     def get_context_data(self, **kwargs):
+#         context = super(HomePageView, self).get_context_data(**kwargs)
+#         # context['latest_articles'] = Article.objects.all()[:5]
+#         return context
 
-    template_name = "home.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        # context['latest_articles'] = Article.objects.all()[:5]
-        return context
+def home_redirect(request):
+    return redirect('purchase-add')
 
 
 class PurchaseCreate(SuccessMessageMixin, CreateView):
     template_name = "purchase_form.html"
+
     model = Purchase
     fields = ['customer', 'product']
     success_url = reverse_lazy('purchase-list')
-    success_message = "It was created successfully"
-
-    # logger = logging.getLogger('testlogger')
+    # success_message = "It was created successfully"
 
     def form_valid(self, form):
-        # form.instance.created_by = self.request.user
-        # send_reward_email(to=form.cleaned_data['customer'],
-        #                   text_body=form.cleaned_data['product'])
-        # print 'dasdADSASASVFDSFSAFLAF;LNASFASNF;SANF;LSLKD'
-        # print form.cleaned_data['customer'], form.cleaned_data['product']
-        print 'ggwtrewsytryeryryytsryeryetetwt'
-        logger.info("%s .... %s" % (form.cleaned_data['customer'],
-                                    form.cleaned_data['product']))
+        customer = form.cleaned_data['customer']
+        product = form.cleaned_data['product']
+        count = Purchase.objects.filter(customer=customer).count() + 1
 
-        messages.add_message(self.request, messages.INFO, 'Hello ' + form.cleaned_data['customer'] )
+        msg = "Purchase number %d for %s. " % (count, customer)
+
+        if count % settings.REWARD_MULTIPLE == 0:
+            if customer.email:
+                send_reward_email(
+                    to=customer.email,
+                    text_body="".join(["Congratulations on your %d purchase from Obi's!",
+                                       "To show our thanks, come on in for a FREE order. See you soon!"]))
+                msg += "Reward email sent."
+            else:
+                msg += "Earned a reward, but no email on record for this customer."
+
+        messages.add_message(self.request, messages.INFO, msg)
         return super(PurchaseCreate, self).form_valid(form)
 
 
@@ -71,7 +79,7 @@ class CustomerList(ListView):
 
 class CustomerDetail(SingleObjectMixin, ListView):
     """Customer and purchases."""
-    paginate_by = 3
+    paginate_by = 50
     template_name = "customer_detail.html"
 
     def get(self, request, *args, **kwargs):
@@ -102,24 +110,17 @@ def user_login(request):
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            # Is the account active? It could have been disabled.
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect(reverse('quiz_index'))
             else:
-                # An inactive account was used - no logging in!
                 return HttpResponse("Your account is disabled.")
         else:
-            # Bad login details were provided. So we can't log the user in.
             print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
-
-    # The request is not a HTTP POST, so display the login form.
-    # This scenario would most likely be a HTTP GET.
     else:
-        # No context variables to pass to the template system, hence the
-        # blank dictionary object...
         return render_to_response('login.html', {}, context)
+
 
 @login_required
 def user_logout(request):

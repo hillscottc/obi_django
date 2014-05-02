@@ -13,13 +13,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'purchase-add' %}">Buy</a></li>
+{#                <li><a href="{% url 'home' %}">Home</a></li>#}
+
+                <li><a href="{% url 'purchase-add' %}">Purchase</a></li>
 
                 <li><a href="{% url 'customer-list' %}">Customers</a></li>
-                <li><a href="{% url 'purchase-list' %}">Purchases</a></li>
+                <li><a href="{% url 'purchase-list' %}">History</a></li>
 
-                <li><a href="/admin/">Admin</a></li>
+{#                <li><a href="/admin/">Admin</a></li>#}
 
                 {% comment %}
                 {% if user.is_authenticated %}
