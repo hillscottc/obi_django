@@ -66,15 +66,30 @@ class PurchaseCreate(SuccessMessageMixin, CreateView):
         messages.add_message(self.request, messages.INFO, msg)
         return super(PurchaseCreate, self).form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(PurchaseCreate, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
 
 class PurchaseList(ListView):
     model = Purchase
     template_name = "purchase_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(PurchaseList, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
 
 class CustomerList(ListView):
     model = Customer
     template_name = "customer_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomerList, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 
 class CustomerDetail(SingleObjectMixin, ListView):
@@ -89,6 +104,7 @@ class CustomerDetail(SingleObjectMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(CustomerDetail, self).get_context_data(**kwargs)
         context['customer'] = self.object
+        context['user'] = self.request.user
         return context
 
     def get_queryset(self):
@@ -98,6 +114,11 @@ class CustomerDetail(SingleObjectMixin, ListView):
 class PurchaseDelete(DeleteView):
     model = Purchase
     success_url = reverse_lazy('purchase-list')
+
+    def get_context_data(self, **kwargs):
+        context = super(PurchaseDelete, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
 
 
 def user_login(request):
@@ -112,7 +133,7 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('quiz_index'))
+                return HttpResponseRedirect(reverse('home'))
             else:
                 return HttpResponse("Your account is disabled.")
         else:

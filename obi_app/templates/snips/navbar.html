@@ -13,37 +13,27 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-{#                <li><a href="{% url 'home' %}">Home</a></li>#}
+                {#                <li><a href="{% url 'home' %}">Home</a></li>#}
 
                 <li><a href="{% url 'purchase-add' %}">Purchase</a></li>
 
                 <li><a href="{% url 'customer-list' %}">Customers</a></li>
                 <li><a href="{% url 'purchase-list' %}">History</a></li>
 
-{#                <li><a href="/admin/">Admin</a></li>#}
+                {#                <li><a href="/admin/">Admin</a></li>#}
 
-                {% comment %}
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
-                {% endcomment %}
 
 
-
-</ul>
-
-
-
-            </ul>
-        {% comment %}
             {% if user.is_authenticated %}
                 <p class="navbar-text pull-right">
-                    Signed in as <a href="{% url 'user_account' %}">{{ user.username }}</a>
+                    Signed in as {{ user.username }}
                 </p>
             {% endif %}
-               {% endcomment %}
 
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
