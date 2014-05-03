@@ -1,41 +1,22 @@
-import os
-from django.contrib.auth.decorators import login_required
+import logging
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import (HttpResponse, RequestContext, redirect,
                               render_to_response, HttpResponseRedirect)
-from django.core.urlresolvers import reverse
-from django.views.generic import ListView, TemplateView
-from django.contrib.messages.views import SuccessMessageMixin
+
+from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
-from django.contrib import messages
-from django.conf import settings
+
+from obi_project.utils import send_reward_email
+# from obi_project.views import LoginRequiredMixIn
 from .models import Purchase, Customer
-from postmark import PMMail
-import logging
 
 logger = logging.getLogger('testlogger')
-
-
-def send_reward_email(**kwargs):
-    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
-                     subject="Your reward from Obi",
-                     sender="shill@taluslabs.com",
-                     **kwargs)
-    message.send()
-
-
-# class HomePageView(TemplateView):
-#     template_name = "home.html"
-#     def get_context_data(self, **kwargs):
-#         context = super(HomePageView, self).get_context_data(**kwargs)
-#         # context['latest_articles'] = Article.objects.all()[:5]
-#         return context
-
-
-def home_redirect(request):
-    return redirect('purchase-add')
 
 
 class PurchaseCreate(SuccessMessageMixin, CreateView):
@@ -48,7 +29,7 @@ class PurchaseCreate(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         customer = form.cleaned_data['customer']
-        product = form.cleaned_data['product']
+        # product = form.cleaned_data['product']
         count = Purchase.objects.filter(customer=customer).count() + 1
 
         msg = "Purchase number %d for %s. " % (count, customer)
@@ -148,5 +129,15 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+
+def home_redirect(request):
+    return redirect('purchase-add')
+
+# class HomePageView(TemplateView):
+#     template_name = "home.html"
+#     def get_context_data(self, **kwargs):
+#         context = super(HomePageView, self).get_context_data(**kwargs)
+#         # context['latest_articles'] = Article.objects.all()[:5]
+#         return context
 
 
