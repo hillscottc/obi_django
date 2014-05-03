@@ -4,10 +4,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import (HttpResponse, RequestContext, redirect,
+from django.shortcuts import (HttpResponse, RequestContext,
                               render_to_response, HttpResponseRedirect)
 
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 
@@ -18,13 +18,20 @@ from .models import Purchase, Customer
 logger = logging.getLogger('testlogger')
 
 
+class HomePageView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        return context
+
+
 class PurchaseCreate(LoginRequiredMixIn, CreateView):
     template_name = "purchase_form.html"
 
     model = Purchase
     fields = ['customer', 'product']
     success_url = reverse_lazy('purchase-list')
-    # success_message = "It was created successfully"
 
     def form_valid(self, form):
         customer = form.cleaned_data['customer']
@@ -129,14 +136,6 @@ def user_logout(request):
     return HttpResponseRedirect('/')
 
 
-def home_redirect(request):
-    return redirect('purchase-add')
 
-# class HomePageView(TemplateView):
-#     template_name = "home.html"
-#     def get_context_data(self, **kwargs):
-#         context = super(HomePageView, self).get_context_data(**kwargs)
-#         # context['latest_articles'] = Article.objects.all()[:5]
-#         return context
 
 

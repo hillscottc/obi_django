@@ -4,16 +4,12 @@
 
 {% block content %}
 
-<h2>Home</h2>
-
-<ul>
-    <li><a href="/admin/">/admin/</a></li>
-    <li><a href="/purchases/">/purchases/</a></li>
-    <li>Customers -
-        <a href="/customers/">All</a>
-        <a href="/customers/1/">One</a>
-    </li>
-    <li><a href="purchase/add/">/purchase/add/</a></li>
-</ul>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome.</h1>
+        <p></p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="{% url 'purchase-add' %}">Purchase &raquo;</a></p>
+      </div>
+    </div>
 
 {% endblock %}
