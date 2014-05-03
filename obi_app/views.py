@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import (HttpResponse, RequestContext, redirect,
                               render_to_response, HttpResponseRedirect)
 
@@ -13,13 +12,13 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import CreateView, DeleteView
 
 from obi_project.utils import send_reward_email
-# from obi_project.views import LoginRequiredMixIn
+from obi_project.views import LoginRequiredMixIn
 from .models import Purchase, Customer
 
 logger = logging.getLogger('testlogger')
 
 
-class PurchaseCreate(SuccessMessageMixin, CreateView):
+class PurchaseCreate(LoginRequiredMixIn, CreateView):
     template_name = "purchase_form.html"
 
     model = Purchase
@@ -73,7 +72,7 @@ class CustomerList(ListView):
         return context
 
 
-class CustomerDetail(SingleObjectMixin, ListView):
+class CustomerDetail(LoginRequiredMixIn, SingleObjectMixin, ListView):
     """Customer and purchases."""
     paginate_by = 50
     template_name = "customer_detail.html"
@@ -92,7 +91,7 @@ class CustomerDetail(SingleObjectMixin, ListView):
         return self.object.purchase_set.all()
 
 
-class PurchaseDelete(DeleteView):
+class PurchaseDelete(LoginRequiredMixIn, DeleteView):
     model = Purchase
     success_url = reverse_lazy('purchase-list')
 
