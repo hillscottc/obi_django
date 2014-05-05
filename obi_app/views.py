@@ -59,9 +59,10 @@ class PurchaseCreate(LoginRequiredMixIn, CreateView):
         return context
 
 
-class PurchaseList(ListView):
+class PurchaseList(LoginRequiredMixIn, ListView):
     model = Purchase
     template_name = "purchase_list.html"
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PurchaseList, self).get_context_data(**kwargs)
@@ -69,7 +70,7 @@ class PurchaseList(ListView):
         return context
 
 
-class CustomerList(ListView):
+class CustomerList(LoginRequiredMixIn, ListView):
     model = Customer
     template_name = "customer_list.html"
 
